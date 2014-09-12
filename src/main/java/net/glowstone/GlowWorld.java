@@ -3,10 +3,21 @@ package net.glowstone;
 import net.glowstone.block.GlowBlock;
 import net.glowstone.constants.GlowBiome;
 import net.glowstone.entity.*;
+import net.glowstone.entity.animals.GlowChicken;
 import net.glowstone.entity.animals.GlowCow;
+import net.glowstone.entity.animals.GlowHorse;
+import net.glowstone.entity.animals.GlowMushroomCow;
 import net.glowstone.entity.animals.GlowPig;
+import net.glowstone.entity.animals.GlowSheep;
+import net.glowstone.entity.monsters.GlowBlaze;
+import net.glowstone.entity.monsters.GlowCaveSpider;
+import net.glowstone.entity.monsters.GlowEnderman;
+import net.glowstone.entity.monsters.GlowGiant;
+import net.glowstone.entity.monsters.GlowPigZombie;
 import net.glowstone.entity.monsters.GlowZombie;
 import net.glowstone.entity.objects.GlowItem;
+import net.glowstone.entity.projectiles.GlowArrow;
+import net.glowstone.entity.projectiles.GlowEgg;
 import net.glowstone.io.WorldMetadataService.WorldFinalValues;
 import net.glowstone.io.WorldStorageProvider;
 import net.glowstone.io.anvil.AnvilWorldStorageProvider;
@@ -868,14 +879,44 @@ public final class GlowWorld implements World {
 
         Entity entity = null;
 
-        if (Cow.class.isAssignableFrom(clazz)) {
-            entity = new GlowCow(location);
+        if (Arrow.class.isAssignableFrom(clazz)) {
+            entity = new GlowArrow(location);
+        } else if (Bat.class.isAssignableFrom(clazz)) {
+            entity = new GlowBat(location);
+        } else if (Blaze.class.isAssignableFrom(clazz)) {
+            entity = new GlowBlaze(location);
+        } else if (Boat.class.isAssignableFrom(clazz)) {
+            throw new UnsupportedOperationException("Not implemented yet.");
+        } else if (CaveSpider.class.isAssignableFrom(clazz)) {
+            entity = new GlowCaveSpider(location);
+        } else if (Chicken.class.isAssignableFrom(clazz)) {
+            entity = new GlowChicken(location);
+        } else if (Cow.class.isAssignableFrom(clazz)) {
+            if (MushroomCow.class.isAssignableFrom(clazz)) {
+                entity = new GlowMushroomCow(location);
+            } else {
+                entity = new GlowCow(location);
+            }
+        } else if (Egg.class.isAssignableFrom(clazz)) {
+            entity = new GlowEgg(location);
+        } else if (Enderman.class.isAssignableFrom(clazz)) {
+            entity = new GlowEnderman(location);
+        } else if (EnderDragon.class.isAssignableFrom(clazz)) {
+            throw new UnsupportedOperationException("Not implemented yet.");
+        } else if (Ghast.class.isAssignableFrom(clazz)) {
+            throw new UnsupportedOperationException("Not implemented yet.");
+        } else if (Giant.class.isAssignableFrom(clazz)) {
+            entity = new GlowGiant(location);
+        } else if (Golem.class.isAssignableFrom(clazz)) {
+            throw new UnsupportedOperationException("Not implemented yet.");
+        } else if (Horse.class.isAssignableFrom(clazz)) {
+            entity = new GlowHorse(location);
         } else if (Pig.class.isAssignableFrom(clazz)) {
             entity = new GlowPig(location);
-        } else if (Zombie.class.isAssignableFrom(clazz)) {
-            entity = new GlowZombie(location);
-        } else {
-            throw new UnsupportedOperationException();
+        } else if (PigZombie.class.isAssignableFrom(clazz)) {
+            entity = new GlowPigZombie(location);
+        } else if (Sheep.class.isAssignableFrom(clazz)) {
+            entity = new GlowSheep(location);
         }
         return (T) entity;
 

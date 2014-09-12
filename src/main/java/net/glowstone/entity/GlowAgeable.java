@@ -20,6 +20,9 @@ import org.bukkit.entity.LivingEntity;
  */
 public class GlowAgeable extends GlowCreature implements Ageable {
 
+    private static final int AGE_BABY = -24000;
+    private static final int AGE_ADULT = 0;
+    protected float width, height;
     private int age = 0;
     private boolean ageLocked = false;
 
@@ -36,7 +39,16 @@ public class GlowAgeable extends GlowCreature implements Ageable {
     public void pulse() {
         super.pulse();
         if (this.ageLocked) {
-            //
+            setScaleForAge(!isAdult());
+        } else {
+            int currentAge = this.age;
+            if (currentAge < AGE_ADULT) {
+                currentAge++;
+                setAge(currentAge);
+            } else if (currentAge > AGE_ADULT) {
+                currentAge--;
+                setAge(currentAge);
+            }
         }
     }
 
@@ -48,6 +60,7 @@ public class GlowAgeable extends GlowCreature implements Ageable {
     @Override
     public final void setAge(int age) {
         this.age = age;
+        this.setScaleForAge(isAdult());
     }
 
     @Override
@@ -63,37 +76,41 @@ public class GlowAgeable extends GlowCreature implements Ageable {
     @Override
     public final void setBaby() {
         if (isAdult()) {
-            setAge(-24000);
+            setAge(AGE_BABY);
         }
     }
 
     @Override
     public final void setAdult() {
         if (!isAdult()) {
-            setAge(0);
+            setAge(AGE_ADULT);
         }
     }
 
     @Override
     public final boolean isAdult() {
-        return this.age >= 0;
+        return this.age >= AGE_ADULT;
     }
 
     @Override
     public final boolean canBreed() {
-        return this.age == 0;
+        return this.age == AGE_ADULT;
     }
 
     @Override
-    public void setBreed(boolean b) {
-
+    public void setBreed(boolean breed) {
+        if (breed) {
+            setAge(AGE_ADULT);
+        } else if (isAdult()) {
+            setAge(6000);
+        }
     }
 
-    public void setScaleForAge(boolean isBaby) {
-
+    public void setScaleForAge(boolean isAdult) {
+        setScale(isAdult ? 1.0F : 0.5F);
     }
 
     protected final void setScale(float scale) {
-//        super.setScale(this.val *scale, this.val2 * scale);
+        setSize(this.height * scale, this.width * scale);
     }
 }

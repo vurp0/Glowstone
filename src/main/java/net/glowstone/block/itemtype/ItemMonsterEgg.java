@@ -23,7 +23,10 @@ public class ItemMonsterEgg extends ItemType {
     public void rightClickBlock(GlowPlayer player, GlowBlock target, BlockFace face, ItemStack holding, Vector clickedLoc) {
         final SpawnEgg data = (SpawnEgg) holding.getData();
         final EntityType type = data.getSpawnedType();
-
-        target.getWorld().spawnEntity(target.getLocation(), type);
+        switch (face) {
+            case UP:
+            default:
+                target.getWorld().spawnEntity(target.getLocation().add(0.5, 0.25, 0.5), type);
+        }
     }
 }

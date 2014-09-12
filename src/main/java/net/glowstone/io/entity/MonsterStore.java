@@ -1,6 +1,5 @@
 package net.glowstone.io.entity;
 
-import net.glowstone.entity.GlowCreature;
 import net.glowstone.entity.GlowMonster;
 import net.glowstone.util.nbt.CompoundTag;
 

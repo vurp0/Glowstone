@@ -4,6 +4,7 @@ import net.glowstone.GlowServer;
 import net.glowstone.block.GlowBlock;
 import net.glowstone.block.GlowBlockState;
 import net.glowstone.entity.GlowPlayer;
+import net.glowstone.net.message.play.game.UseBedMessage;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.inventory.ItemStack;
@@ -64,6 +65,7 @@ public class BlockBed extends BlockType {
             ((Bed)data).setFacingDirection(direction);
             headBlockState.setData(data);
             headBlockState.update(true);
+            player.getSession().send(new UseBedMessage(player.getEntityId(), headBlock.getX(), headBlock.getY(), headBlock.getZ()));
         }
     }
 }

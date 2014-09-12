@@ -18,7 +18,7 @@ import net.glowstone.net.message.play.player.*;
 
 public final class PlayProtocol extends GlowProtocol {
     public PlayProtocol() {
-        super("PLAY", 0x49);
+        super("PLAY", 0x4A);
 
         inbound(0x00, PingMessage.class, PingCodec.class, PingHandler.class);
         inbound(0x01, IncomingChatMessage.class, IncomingChatCodec.class, ChatHandler.class);
@@ -57,6 +57,7 @@ public final class PlayProtocol extends GlowProtocol {
         outbound(0x07, RespawnMessage.class, RespawnCodec.class);
         outbound(0x08, PositionRotationMessage.class, PositionRotationCodec.class);
         outbound(0x09, HeldItemMessage.class, HeldItemCodec.class);
+        outbound(0x0A, UseBedMessage.class, UseBedCodec.class);
         outbound(0x0B, AnimateEntityMessage.class, AnimateEntityCodec.class);
         outbound(0x0C, SpawnPlayerMessage.class, SpawnPlayerCodec.class);
         outbound(0x0D, CollectItemMessage.class, CollectItemCodec.class);

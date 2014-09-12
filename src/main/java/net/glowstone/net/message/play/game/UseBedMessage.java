@@ -32,6 +32,11 @@ public class UseBedMessage implements Message {
 
     @Override
     public String toString() {
-        return "UseBedMessage{id=" + id + ",x=" + x + ",y=" + y + ",z=" + z +"}";
+        return "UseBedMessage{" +
+                "id=" + id +
+                ",x=" + x +
+                ",y=" + y +
+                ",z=" + z +
+                "}";
     }
 }

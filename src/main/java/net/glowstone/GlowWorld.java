@@ -3,6 +3,10 @@ package net.glowstone;
 import net.glowstone.block.GlowBlock;
 import net.glowstone.constants.GlowBiome;
 import net.glowstone.entity.*;
+import net.glowstone.entity.animals.GlowChicken;
+import net.glowstone.entity.animals.GlowCow;
+import net.glowstone.entity.animals.GlowMushroomCow;
+import net.glowstone.entity.monsters.GlowCreeper;
 import net.glowstone.entity.objects.GlowItem;
 import net.glowstone.io.WorldMetadataService.WorldFinalValues;
 import net.glowstone.io.WorldStorageProvider;
@@ -937,7 +941,29 @@ public final class GlowWorld implements World {
 
     @Override
     public <T extends Entity> T spawn(Location location, Class<T> clazz) throws IllegalArgumentException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Entity entity = null;
+        // TODO make this more versatile and accepting of custom entity classes.
+        if (Projectile.class.isAssignableFrom(clazz)) {
+            // Do stuff
+            throw new UnsupportedOperationException("Not implemented yet");
+        } else if (LivingEntity.class.isAssignableFrom(clazz)) {
+            if (Chicken.class.isAssignableFrom(clazz)) {
+                entity = new GlowChicken(location);
+            } else if (Cow.class.isAssignableFrom(clazz)) {
+                if (MushroomCow.class.isAssignableFrom(clazz)) {
+                    entity = new GlowMushroomCow(location);
+                } else {
+                    entity = new GlowCow(location);
+                }
+            } else if (Golem.class.isAssignableFrom(clazz)) {
+                if (Snowman.class.isAssignableFrom(clazz)) {
+                    throw new UnsupportedOperationException("Not implemented yet");
+                }
+            } else if (Creeper.class.isAssignableFrom(clazz)) {
+                entity = new GlowCreeper(location);
+            }
+        }
+        return null;
     }
 
     @Override

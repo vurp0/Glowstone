@@ -21,18 +21,11 @@ public class GlowPainting extends GlowEntity implements Painting {
     
     Art motive;
 
-    int tileX;
-    int tileY;
-    int tileZ;
-
     BlockFace facingDirection;
 
     public GlowPainting(Location location, Art art, BlockFace facingDirection) {
         super(location);
         setArt(art);
-        tileX = location.getBlockX();
-        tileY = location.getBlockY();
-        tileZ = location.getBlockZ();
         this.facingDirection = facingDirection;
     }
 
@@ -46,47 +39,13 @@ public class GlowPainting extends GlowEntity implements Painting {
         int y = getTileY();
         int z = getTileZ();
 
-        return Arrays.asList((Message)new SpawnPaintingMessage(id, artToString(motive), x, y, z, getFacingInt(facingDirection)),
-                (Message) new EntityMetadataMessage(id, metadata.getEntryList()));
+        return Arrays.asList(new SpawnPaintingMessage(id, artToString(motive), x, y, z, getFacingInt(facingDirection)),
+                new EntityMetadataMessage(id, metadata.getEntryList()));
     }
 
     @Override
     public List<Message> createUpdateMessage() {
-        boolean moved = hasMoved();
-        boolean rotated = hasRotated();
-
-        int x = getTileX();
-        int y = getTileY();
-        int z = getTileZ();
-
-        int dx = x - getTileX();
-        int dy = y - getTileY();
-        int dz = z - getTileZ();
-
-        boolean teleport = dx > Byte.MAX_VALUE || dy > Byte.MAX_VALUE || dz > Byte.MAX_VALUE || dx < Byte.MIN_VALUE || dy < Byte.MIN_VALUE || dz < Byte.MIN_VALUE;
-
-        int yaw = Position.getIntYaw(location);
-        int pitch = Position.getIntPitch(location);
-
         List<Message> result = new LinkedList<>();
-        //if (teleported || (moved && teleport)) {
-            //result.add(new EntityTeleportMessage(id, x, y, z, yaw, pitch));
-        ///*} else*/ if (moved) {
-            //result.add(new RelativeEntityPositionMessage(id, dx, dy, dz));
-        //}
-
-        // todo: handle head rotation as a separate value
-
-        // send changed metadata
-        List<MetadataMap.Entry> changes = metadata.getEntryList();
-        result.add(new EntityMetadataMessage(id, changes));
-
-        // send velocity if needed
-        /*if (velocityChanged) {
-            result.add(new EntityVelocityMessage(id, velocity));
-        }*/
-
-
         return result;
     }
 
@@ -112,33 +71,33 @@ public class GlowPainting extends GlowEntity implements Painting {
     }
 
     public int getTileX() {
-        return tileX;
+        return (int)location.getX();
     }
 
     public void setTileX(int tileX) {
-        this.tileX = tileX;
+        location.setX(tileX);
     }
 
     public int getTileY() {
-        return tileY;
+        return (int)location.getY();
     }
 
     public void setTileY(int tileY) {
-        this.tileY = tileY;
+        location.setY(tileY);
     }
 
     public int getTileZ() {
-        return tileZ;
+        return (int)location.getZ();
     }
 
     public void setTileZ(int tileZ) {
-        this.tileZ = tileZ;
+        location.setZ(tileZ);
     }
 
     public void setTilePosition(int tileX, int tileY, int tileZ) {
-        this.tileX = tileX;
-        this.tileY = tileY;
-        this.tileZ = tileZ;
+        setTileX(tileX);
+        setTileY(tileY);
+        setTileZ(tileZ);
     }
 
     @Override

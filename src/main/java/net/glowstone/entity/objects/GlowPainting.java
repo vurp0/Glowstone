@@ -1,11 +1,8 @@
 package net.glowstone.entity.objects;
 
 import com.flowpowered.networking.Message;
-import javafx.geometry.Pos;
 import net.glowstone.entity.GlowEntity;
-import net.glowstone.entity.meta.MetadataMap;
 import net.glowstone.net.message.play.entity.*;
-import net.glowstone.util.Position;
 import org.bukkit.Art;
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;

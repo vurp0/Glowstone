@@ -15,7 +15,7 @@ class PaintingStore extends EntityStore<GlowPainting> {
 
     @Override
     public GlowPainting createEntity(Location location, CompoundTag compound) {
-        return null;
+        return new GlowPainting(location, Art.SUNSET, BlockFace.SOUTH);
     }
 
     @Override
@@ -86,78 +86,25 @@ class PaintingStore extends EntityStore<GlowPainting> {
     public void save(GlowPainting entity, CompoundTag tag) {
         super.save(entity, tag);
 
-        tag.putString("Motive", artToString(entity.getArt()));
+        tag.putString("Motive", GlowPainting.artToString(entity.getArt()));
         tag.putInt("TileX", entity.getTileX());
         tag.putInt("TileY", entity.getTileY());
         tag.putInt("TileZ", entity.getTileZ());
         switch (entity.getFacing()) {
             case SOUTH:
                 tag.putByte("Facing", 0);
+                break;
             case WEST:
                 tag.putByte("Facing", 1);
+                break;
             case NORTH:
                 tag.putByte("Facing", 2);
+                break;
             case EAST:
                 tag.putByte("Facing", 3);
+                break;
         }
     }
 
-    private static String artToString(Art art) {
-        switch (art) {
-            case KEBAB:
-                return "Kebab";
-            case AZTEC:
-                return "Aztec";
-            case ALBAN:
-                return "Alban";
-            case AZTEC2:
-                return "Aztec2";
-            case BOMB:
-                return "Bomb";
-            case PLANT:
-                return "Plant";
-            case WASTELAND:
-                return "Wasteland";
-            case WANDERER:
-                return "Wanderer";
-            case GRAHAM:
-                return "Graham";
-            case POOL:
-                return "Pool";
-            case COURBET:
-                return "Courbet";
-            case SUNSET:
-                return "Sunset";
-            case SEA:
-                return "Sea";
-            case CREEBET:
-                return "Creebet";
-            case MATCH:
-                return "Match";
-            case BUST:
-                return "Bust";
-            case STAGE:
-                return "Stage";
-            case VOID:
-                return "Void";
-            case SKULL_AND_ROSES:
-                return "SkullAndRoses";
-            case WITHER:
-                return "Wither";
-            case FIGHTERS:
-                return "Fighters";
-            case SKELETON:
-                return "Skeleton";
-            case DONKEYKONG:
-                return "DonkeyKong";
-            case POINTER:
-                return "Pointer";
-            case PIGSCENE:
-                return "Pigscene";
-            case BURNINGSKULL:
-                return "BurningSkull";
-            default:
-                return "Kebab";
-        }
-    }
+
 }

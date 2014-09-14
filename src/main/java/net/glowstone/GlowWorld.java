@@ -8,12 +8,14 @@ import net.glowstone.entity.animals.GlowCow;
 import net.glowstone.entity.animals.GlowMushroomCow;
 import net.glowstone.entity.monsters.GlowCreeper;
 import net.glowstone.entity.objects.GlowItem;
+import net.glowstone.entity.objects.GlowPainting;
 import net.glowstone.io.WorldMetadataService.WorldFinalValues;
 import net.glowstone.io.WorldStorageProvider;
 import net.glowstone.io.anvil.AnvilWorldStorageProvider;
 import org.bukkit.*;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.*;
 import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
@@ -962,8 +964,11 @@ public final class GlowWorld implements World {
             } else if (Creeper.class.isAssignableFrom(clazz)) {
                 entity = new GlowCreeper(location);
             }
+        } else if (Painting.class.isAssignableFrom(clazz)) {
+            entity = new GlowPainting(location, Art.KEBAB, BlockFace.SOUTH);
         }
-        return null;
+        //return null;
+        return (T)entity;
     }
 
     @Override

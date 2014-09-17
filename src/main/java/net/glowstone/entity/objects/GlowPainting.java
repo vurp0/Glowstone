@@ -315,5 +315,4 @@ public class GlowPainting extends GlowEntity implements Painting {
                 return 2;
         }
     }
-
 }

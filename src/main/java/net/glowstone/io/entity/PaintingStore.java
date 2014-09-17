@@ -1,8 +1,6 @@
 package net.glowstone.io.entity;
 
-import net.glowstone.entity.objects.GlowItem;
 import net.glowstone.entity.objects.GlowPainting;
-import net.glowstone.io.nbt.NbtSerialization;
 import net.glowstone.util.nbt.CompoundTag;
 import org.bukkit.Art;
 import org.bukkit.Location;
@@ -15,7 +13,7 @@ class PaintingStore extends EntityStore<GlowPainting> {
 
     @Override
     public GlowPainting createEntity(Location location, CompoundTag compound) {
-        return new GlowPainting(location, Art.SUNSET, BlockFace.SOUTH);
+        return new GlowPainting(location, Art.KEBAB, BlockFace.SOUTH);
     }
 
     @Override

@@ -6,11 +6,14 @@ import net.glowstone.net.message.play.entity.EntityMetadataMessage;
 import net.glowstone.net.message.play.entity.SpawnPaintingMessage;
 import org.bukkit.Art;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Painting;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import java.util.Arrays;
@@ -31,10 +34,6 @@ public class GlowPainting extends GlowEntity implements Painting {
             this.facingDirection = BlockFace.SOUTH;
         }
         this.motive = art;
-    }
-
-    public GlowPainting(Location location, String name, BlockFace facingDirection) {
-        this(location, Art.getByName(name), facingDirection);
     }
 
     @Override
@@ -157,13 +156,19 @@ public class GlowPainting extends GlowEntity implements Painting {
     public void pulse() {
         super.pulse();
         if (!fitsOnWall(getWorld(), location, facingDirection, motive)) {
-            this.remove();
+            remove();
         }
     }
 
     @Override
     public BlockFace getFacing() {
         return facingDirection;
+    }
+
+    @Override
+    public void remove() {
+        super.remove();
+        world.dropItem(location, new ItemStack(Material.PAINTING));
     }
 
     public static boolean fitsOnWall(World world, Location location, BlockFace facingDirection, Art motive) {
